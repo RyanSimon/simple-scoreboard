@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.melnykov.fab.FloatingActionButton;
 
@@ -16,14 +17,16 @@ import java.util.List;
 import me.ryansimon.simplescoreboard.api.model.Player;
 
 
-public class ScoreManagerActivity extends ActionBarActivity {
+public class ScoreManagerActivity extends ActionBarActivity 
+        implements NewPlayerDialogFragment.OnDialogActionListener{
 
     /**
      * Layout vars
      */
-    RecyclerView mPlayerList;
-    PlayerItemAdapter mPlayerItemAdapter;
-    FloatingActionButton mFab;
+    private RecyclerView mPlayerList;
+    private PlayerItemAdapter mPlayerItemAdapter;
+    private FloatingActionButton mFab;
+    private NewPlayerDialogFragment mNewPlayerDialog;
 
     /**
      * Other vars 
@@ -105,8 +108,41 @@ public class ScoreManagerActivity extends ActionBarActivity {
         GridLayoutManager glm = new GridLayoutManager(this,2);
         mPlayerList.setLayoutManager(glm);
 
+        setupFAB();
+    }
+
+    /**
+     * Sets up the Floating Action Button (FAB) for adding new Players
+     */
+    private void setupFAB() {
+
         // setup FAB and bind it to RecyclerView
         mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.attachToRecyclerView(mPlayerList);
+        
+        // setup DialogFragment
+        if(mNewPlayerDialog == null) {
+            mNewPlayerDialog = NewPlayerDialogFragment.newInstance();
+        }
+        
+        mFab.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                mNewPlayerDialog.show(getSupportFragmentManager(),"dialog");
+            }
+        });
+    }
+    
+    /***** DIALOG CALLBACKS *****/
+
+    @Override
+    public void onPositive() {
+        
+    }
+
+    @Override
+    public void onNegative() {
+
     }
 }
