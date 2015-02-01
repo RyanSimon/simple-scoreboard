@@ -23,6 +23,11 @@ RecyclerView incorporates its own version of the ViewHolder pattern to maintain 
 
 For example, this flexibility is especially useful in handling click events on different Views within an individual row.
 
+#### CardView [[link]](https://developer.android.com/reference/android/support/v7/widget/CardView.html)
+A grid of CardViews makes what would normally be a fairly boring list of data, look a little more exciting.
+
+Using a CardView for showing what amounts to a scorecard also makes a lot of sense :).
+
 #### Toolbar [[link]](http://developer.android.com/reference/android/widget/Toolbar.html)
 As Android's replacement for the ActionBar, the Toolbar's greatest strength is its ability to be injected straight into a layout. This allows for an incredible amount of design flexibility.
 
