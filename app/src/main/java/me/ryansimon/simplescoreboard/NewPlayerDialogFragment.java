@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.EditText;
 
 /**
  * @author Ryan Simon
@@ -18,12 +20,23 @@ import android.view.KeyEvent;
  */
 public class NewPlayerDialogFragment extends android.support.v4.app.DialogFragment {
 
+    /**
+     * Layout vars 
+     */
+    private EditText mPlayerNameInput;
+    private EditText mPlayerScoreInput;
+    
+    /**
+     * Callback vars 
+     */
     private OnDialogActionListener mListener;
 
     public static NewPlayerDialogFragment newInstance() {
         return new NewPlayerDialogFragment();
     }
 
+    /***** CONSTRUCTORS *****/
+    
     public NewPlayerDialogFragment() {
         // Required empty public constructor
     }
@@ -50,11 +63,10 @@ public class NewPlayerDialogFragment extends android.support.v4.app.DialogFragme
                     @Override
                     public boolean onKey(DialogInterface dialog,
                                          int keyCode, KeyEvent event) {
-                        if(keyCode == KeyEvent.KEYCODE_BACK) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK) {
                             dialog.cancel();
                             return true;
-                        }
-                        else return false;
+                        } else return false;
                     }
                 })
                 .setTitle(R.string.new_player_help)
@@ -62,7 +74,10 @@ public class NewPlayerDialogFragment extends android.support.v4.app.DialogFragme
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mListener.onPositive();
+                        mListener.onPositive(
+                                mPlayerNameInput.getText().toString(),
+                                mPlayerScoreInput.getText().toString()
+                        );
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -74,9 +89,13 @@ public class NewPlayerDialogFragment extends android.support.v4.app.DialogFragme
                 });
         
         // inflate Dialog layout
-        alertDialogBuilder.setView(
-                getActivity().getLayoutInflater().inflate(R.layout.new_player_dialog,null)
-        );
+        View dialogLayout = getActivity().getLayoutInflater().inflate(R.layout.new_player_dialog, null);
+        
+        // get layout vars
+        mPlayerNameInput = (EditText) dialogLayout.findViewById(R.id.new_player_name_input);
+        mPlayerScoreInput = (EditText) dialogLayout.findViewById(R.id.new_player_score_input);
+        
+        alertDialogBuilder.setView(dialogLayout);
         
         return alertDialogBuilder.create();
     }
@@ -90,7 +109,7 @@ public class NewPlayerDialogFragment extends android.support.v4.app.DialogFragme
     /***** CALLBACK INTERFACE *****/
     
     public interface OnDialogActionListener {
-        public void onPositive();
+        public void onPositive(String newPlayerName, String newPlayerScore);
         public void onNegative();
     }
 }

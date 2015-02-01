@@ -50,11 +50,12 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@id/player_score_container"
+                android:gravity="bottom"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="Personsddf Playersdfsfs"
                 android:textColor="@color/white"
                 android:textSize="18sp"
+                android:lines="2"
                 android:maxLines="2"
                 android:ellipsize="end" />
             

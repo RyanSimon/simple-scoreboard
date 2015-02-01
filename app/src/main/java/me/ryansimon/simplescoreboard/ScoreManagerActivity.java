@@ -16,8 +16,15 @@ import java.util.List;
 
 import me.ryansimon.simplescoreboard.api.model.Player;
 
-
-public class ScoreManagerActivity extends ActionBarActivity 
+/**
+ * @author Ryan Simon
+ * 
+ * Displays player scores, and allows for adding players, deleting players, and adjusting their 
+ * score.
+ * 
+ * Scores are 0 by default, and can never be negative.
+ */
+public class ScoreManagerActivity extends ActionBarActivity
         implements NewPlayerDialogFragment.OnDialogActionListener{
 
     /**
@@ -31,6 +38,7 @@ public class ScoreManagerActivity extends ActionBarActivity
     /**
      * Other vars 
      */
+    List<Player> mPlayers;
     
     /***** ACTIVITY LIFECYCLE METHODS *****/
     
@@ -87,12 +95,12 @@ public class ScoreManagerActivity extends ActionBarActivity
         final Player seven = new Player("Luke Skywalker", 98);
         final Player eight = new Player("Enrique Delgado", 220);
         
-        List<Player> playerList = new ArrayList<Player>() {{
+        mPlayers = new ArrayList<Player>() {{
             add(one); add(two); add(three); add(four); add(five); add(six);
             add(seven); add(eight);
         }};
         
-        mPlayerItemAdapter = new PlayerItemAdapter(playerList);
+        mPlayerItemAdapter = new PlayerItemAdapter(mPlayers);
     }
 
     /**
@@ -136,9 +144,25 @@ public class ScoreManagerActivity extends ActionBarActivity
     
     /***** DIALOG CALLBACKS *****/
 
+    /**
+     * Confirm action from Dialog. In this case, add a new player to the list, and update grid
+     *
+     * @param newPlayerName; the name of the new player
+     * @param newPlayerScore; the score of the new player
+     */
     @Override
-    public void onPositive() {
+    public void onPositive(String newPlayerName, String newPlayerScore) {
+        // TODO: add form validation checks on Dialog if time allows
+        final int newPlayerPosition = 0;
         
+        mPlayers.add(newPlayerPosition,new Player(
+                (newPlayerName.equals("")) ? getString(R.string.default_player_name) : newPlayerName,
+                (newPlayerScore.equals("")) ? 0 : Integer.valueOf(newPlayerScore)
+            )
+        );
+        
+        // we insert new players at the beginning of the grid
+        mPlayerItemAdapter.notifyItemInserted(newPlayerPosition);
     }
 
     @Override

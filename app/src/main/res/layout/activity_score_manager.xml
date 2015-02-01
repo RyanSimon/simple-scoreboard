@@ -32,7 +32,7 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_add_white_24dp"
             app:fab_colorNormal="@color/primaryColor"
-            app:fab_colorPressed="@color/primaryColorDark" />
+            app:fab_colorPressed="@color/mat_blue_grey_100" />
     </FrameLayout>
 
 </RelativeLayout>

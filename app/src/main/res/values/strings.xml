@@ -5,13 +5,12 @@
     <!-- Score Manager strings -->
     <string name="app_name">SimpleScoreboard</string>
     <string name="title_activity_score_manager">Scoreboard</string>
+    <string name="default_player_name">Empty Player</string>
     
     <!-- New Player Dialog strings -->
     <string name="new_player_help">Add New Player</string>
     <string name="new_player_name_label">Name</string>
     <string name="new_player_score">Initial Score</string>
     <string name="new_player_default_score">0</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
 </resources>
