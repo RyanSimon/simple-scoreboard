@@ -34,11 +34,11 @@ public class ScoreManagerActivity extends ActionBarActivity
     private PlayerItemAdapter mPlayerItemAdapter;
     private FloatingActionButton mFab;
     private NewPlayerDialogFragment mNewPlayerDialog;
-
+    
     /**
      * Other vars 
      */
-    List<Player> mPlayers;
+    private ArrayList<Player> mPlayers;
     
     /***** ACTIVITY LIFECYCLE METHODS *****/
     
@@ -75,7 +75,7 @@ public class ScoreManagerActivity extends ActionBarActivity
         final Player six = new Player("Don Draper", 220);
         final Player seven = new Player("Luke Skywalker", 98);
         final Player eight = new Player("Enrique Delgado", 220);
-        
+
         mPlayers = new ArrayList<Player>() {{
             add(one); add(two); add(three); add(four); add(five); add(six);
             add(seven); add(eight);

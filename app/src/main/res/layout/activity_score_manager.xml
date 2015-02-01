@@ -31,8 +31,13 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add_white_24dp"
-            app:fab_colorNormal="@color/primaryColor"
+            app:fab_colorNormal="@color/primaryAccent"
             app:fab_colorPressed="@color/mat_blue_grey_100" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@drawable/drop_shadow" />
     </FrameLayout>
 
 </RelativeLayout>
