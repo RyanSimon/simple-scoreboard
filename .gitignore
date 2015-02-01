@@ -1,0 +1,46 @@
+### Android Studio ###
+local.properties
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/encodings.xml
+.idea/.name
+.idea/copyright/
+.idea/dictionaries
+*.ipr
+*.iws
+*.iml
+.idea/libraries
+
+### Gradle ###
+.gradle
+build/
+
+### Maven ###
+target/
+pom.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+
+### OSX ###
+.DS_Store
+
+### built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+manifest-merger-debug-report.txt
+atlassian-ide-plugin.xml
