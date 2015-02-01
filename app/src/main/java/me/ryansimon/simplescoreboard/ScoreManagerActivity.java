@@ -2,6 +2,7 @@ package me.ryansimon.simplescoreboard;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -75,13 +76,15 @@ public class ScoreManagerActivity extends ActionBarActivity {
     }
     
     private void createMockContent() {
-        final Player one = new Player("Christina");
-        final Player two = new Player("Shannon");
-        final Player three = new Player("Sharon");
-        final Player four = new Player("Jimmy");
+        final Player one = new Player("Christina Smith");
+        final Player two = new Player("Shannon Jones");
+        final Player three = new Player("Sharon Gonzalez");
+        final Player four = new Player("Jimmy Fallon");
+        final Player five = new Player("Stephen Colbert");
+        final Player six = new Player("Don Draper");
         
         List<Player> playerList = new ArrayList<Player>() {{
-            add(one); add(two); add(three); add(four);
+            add(one); add(two); add(three); add(four); add(five); add(six);
         }};
         
         mPlayerItemAdapter = new PlayerItemAdapter(playerList);
@@ -97,9 +100,8 @@ public class ScoreManagerActivity extends ActionBarActivity {
         // setup our RecyclerView
         mPlayerList = (RecyclerView) findViewById(R.id.player_list);
         mPlayerList.setAdapter(mPlayerItemAdapter);
-        FixedGridLayoutManager fglm = new FixedGridLayoutManager();
-        fglm.setTotalColumnCount(2);
-        mPlayerList.setLayoutManager(fglm);
+        GridLayoutManager glm = new GridLayoutManager(this,2);
+        mPlayerList.setLayoutManager(glm);
 
         // setup FAB and bind it to RecyclerView
         mFab = (FloatingActionButton) findViewById(R.id.fab);

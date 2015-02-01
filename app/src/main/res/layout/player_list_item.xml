@@ -7,21 +7,92 @@
     app:cardUseCompatPadding="true"
     app:cardElevation="2dp"
     app:cardCornerRadius="2dp"
+    app:contentPaddingTop="-2dp"
     app:contentPaddingLeft="-2dp"
     app:contentPaddingRight="-2dp"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp">
+    android:layout_margin="2dp">
 
     <RelativeLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent" >
+        android:layout_width="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout android:id="@+id/player_info_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="C"
-            android:textSize="50sp" />
+            android:background="@color/blue"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <FrameLayout android:id="@+id/player_score_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="top|end"
+                android:layout_marginBottom="40dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:background="@color/white">
+
+                <TextView android:id="@+id/player_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="240 pts"
+                    android:textSize="12sp" />
+                
+            </FrameLayout>
+            
+            <TextView android:id="@+id/player_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/player_score_container"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Personsddf Playersdfsfs"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:maxLines="2"
+                android:ellipsize="end" />
+            
+        </RelativeLayout>
+        
+        <LinearLayout android:id="@+id/action_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/player_info_container"
+            android:orientation="horizontal">
+            
+            <Button android:id="@+id/plus_one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="+1"
+                android:textSize="16sp"
+                android:background="@null" />
+
+            <Button android:id="@+id/minus_one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="-1"
+                android:textSize="16sp"
+                android:background="@null" />
+            
+            <ImageButton android:id="@+id/delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:src="@drawable/ic_delete_grey600_24dp"
+                android:background="@null" />
+            
+        </LinearLayout>
 
     </RelativeLayout>
 
