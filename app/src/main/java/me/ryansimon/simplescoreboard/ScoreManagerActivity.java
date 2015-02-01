@@ -84,7 +84,11 @@ public class ScoreManagerActivity extends ActionBarActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.title_activity_score_manager));
     }
-    
+
+    /**
+     * Get mock content and load it into adapter
+     * TODO: load content from JSON file if time allows
+     */
     private void createMockContent() {
         final Player one = new Player("Christina Smith", 110);
         final Player two = new Player("Shannon Jones", 24);

@@ -50,7 +50,7 @@ public class NewPlayerDialogFragment extends android.support.v4.app.DialogFragme
             mListener = (OnDialogActionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnDialogActionListener");
         }
     }
 

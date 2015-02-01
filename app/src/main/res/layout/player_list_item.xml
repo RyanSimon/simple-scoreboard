@@ -7,9 +7,7 @@
     app:cardUseCompatPadding="true"
     app:cardElevation="2dp"
     app:cardCornerRadius="2dp"
-    app:contentPaddingTop="-2dp"
-    app:contentPaddingLeft="-2dp"
-    app:contentPaddingRight="-2dp"
+    app:contentPadding="-2dp"
     android:layout_margin="2dp">
 
     <RelativeLayout
@@ -39,8 +37,8 @@
                 <TextView android:id="@+id/player_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="240 pts"
-                    android:textSize="12sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
                 
             </FrameLayout>
             
@@ -72,26 +70,28 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="+1"
+                android:text="@string/plus_one"
+                android:textColor="@color/mat_grey_600"
                 android:textSize="16sp"
-                android:background="@null" />
+                android:background="@drawable/square_ripple_mask" />
 
             <Button android:id="@+id/minus_one"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:text="-1"
+                android:text="@string/minus_one"
+                android:textColor="@color/mat_grey_600"
                 android:textSize="16sp"
-                android:background="@null" />
+                android:background="@drawable/square_ripple_mask" />
             
             <ImageButton android:id="@+id/delete"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:src="@drawable/ic_delete_grey600_24dp"
-                android:background="@null" />
+                android:background="@drawable/square_ripple_mask" />
             
         </LinearLayout>
 

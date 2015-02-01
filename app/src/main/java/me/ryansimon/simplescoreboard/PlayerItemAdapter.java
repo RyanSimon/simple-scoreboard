@@ -25,6 +25,8 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
         mPlayers = players;
     }
 
+    /***** OVERRIDE METHODS *****/
+    
     @Override
     public PlayerItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -33,7 +35,7 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
     }
 
     @Override
-    public void onBindViewHolder(PlayerItemViewHolder holder, int position) {
+    public void onBindViewHolder(final PlayerItemViewHolder holder, final int position) {
 
         // get Player item, and set Views with correct data
         Player player = mPlayers.get(position);
@@ -46,7 +48,9 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
         }
         else holder.getPlayerScore().setText(player.getScore() + " pts");
         
-        calculateRowMargins(holder.getRowContainer(),position);
+        setOnClickListeners(holder);
+
+        calculateRowMargins(holder.getRowContainer(), position);
     }
 
     @Override
@@ -55,8 +59,75 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
     }
 
     /***** HELPER METHODS *****/
-    
-    private void calculateRowMargins(View rowContainer, int rowPosition) {
+
+    /**
+     * Setup all click listener actions
+     *
+     * @param holder; the view holder
+     */
+    private void setOnClickListeners(final PlayerItemViewHolder holder) {
+
+        holder.getPlusOne().setOnClickListener(new View.OnClickListener() {
+            /**
+             * Add one point to the player's score
+             *  
+             * @param v; the View clicked on
+             */
+            @Override
+            public void onClick(View v) {
+                Player player = mPlayers.get(holder.getPosition());
+                player.setScore(player.getScore()+1);
+
+                holder.getPlayerScore().setText(
+                        String.valueOf(player.getScore() + " "
+                                        + ((player.getScore() != 1) ? "pts" : "pt")
+                        ));
+            }
+        });
+
+        holder.getMinusOne().setOnClickListener(new View.OnClickListener() {
+            /**
+             * Subtract one point from the player's score
+             *
+             * @param v; the View clicked on
+             */
+            @Override
+            public void onClick(View v) {
+                Player player = mPlayers.get(holder.getPosition());
+                // don't allow negative scores for now
+                if(player.getScore() > 0) {
+                    player.setScore(player.getScore()-1);   
+                }
+                
+                holder.getPlayerScore().setText(
+                        String.valueOf(player.getScore() + " " 
+                                        + ((player.getScore() != 1) ? "pts" : "pt")
+                ));
+            }
+        });
+
+        holder.getDelete().setOnClickListener(new View.OnClickListener() {
+            /**
+             * Delete the player from the list/grid
+             *
+             * @param v; the View clicked on
+             */
+            @Override
+            public void onClick(View v) {
+                // TODO: add Undo snackbar if time allows
+                PlayerItemAdapter.this.mPlayers.remove(holder.getPosition());
+                PlayerItemAdapter.this.notifyItemRemoved(holder.getPosition());
+            }
+        });
+    }
+
+    /**
+     * Adjust margins depending on item position
+     *
+     * @param rowContainer; the parent view of the view holder
+     * @param position; the position of the view holder in the list/grid
+     */
+    private void calculateRowMargins(View rowContainer, int position) {
         RecyclerView.LayoutParams layoutParams = 
                 (RecyclerView.LayoutParams) rowContainer.getLayoutParams();
 
@@ -64,7 +135,7 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
         final int DOUBLE_CARD_MARGIN = Helper.dpToPixels(CARD_MARGIN_DP*2,rowContainer.getContext());
         
         // add extra top margin to the first two items
-        if(rowPosition == 0 || rowPosition == 1) {
+        if(position == 0 || position == 1) {
             layoutParams.setMargins(
                     CARD_MARGIN_PX,
                     DOUBLE_CARD_MARGIN,
@@ -73,7 +144,7 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
             );
         }
         // add extra bottom margin to the last two items
-        else if(rowPosition == mPlayers.size() - 2 || rowPosition == mPlayers.size() - 1) {
+        else if(position == mPlayers.size() - 2 || position == mPlayers.size() - 1) {
             layoutParams.setMargins(
                     CARD_MARGIN_PX,
                     CARD_MARGIN_PX,
@@ -91,18 +162,21 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
             );
         }
     }
-    
-    public static class PlayerItemViewHolder extends RecyclerView.ViewHolder {
+
+    /**
+     * Required ViewHolder class
+     */
+    protected static class PlayerItemViewHolder extends RecyclerView.ViewHolder {
 
         /**
          * Layout vars
          */
-        TextView mPlayerScore;
-        TextView mPlayerName;
-        Button mPlusOne;
-        Button mMinusOne;
-        ImageButton mDelete;
-        View mRowContainer;
+        private TextView mPlayerScore;
+        private TextView mPlayerName;
+        private Button mPlusOne;
+        private Button mMinusOne;
+        private ImageButton mDelete;
+        private View mRowContainer;
 
         public PlayerItemViewHolder(View itemView) {
             super(itemView);
