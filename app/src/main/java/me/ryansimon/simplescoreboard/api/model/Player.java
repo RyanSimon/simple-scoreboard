@@ -3,17 +3,12 @@ package me.ryansimon.simplescoreboard.api.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * @author Ryan Simon
  */
 public class Player implements Parcelable {
-    
-    @SerializedName("name")
+
     private String mName;
-    
-    @SerializedName("score")
     private Integer mScore;
 
     /***** CONSTRUCTORS *****/
