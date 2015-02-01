@@ -10,6 +10,11 @@ import android.view.MenuItem;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import me.ryansimon.simplescoreboard.api.model.Player;
+
 
 public class ScoreManagerActivity extends ActionBarActivity {
 
@@ -17,7 +22,14 @@ public class ScoreManagerActivity extends ActionBarActivity {
      * Layout vars
      */
     RecyclerView mPlayerList;
+    PlayerItemAdapter mPlayerItemAdapter;
     FloatingActionButton mFab;
+
+    /**
+     * Other vars 
+     */
+    
+    /***** ACTIVITY LIFECYCLE METHODS *****/
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +63,8 @@ public class ScoreManagerActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /***** HELPER METHODS *****/
+    
     /**
      * Sets up Toolbar and the title of the Activity
      */
@@ -59,20 +73,33 @@ public class ScoreManagerActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.title_activity_score_manager));
     }
+    
+    private void createMockContent() {
+        final Player one = new Player("Christina");
+        final Player two = new Player("Shannon");
+        final Player three = new Player("Sharon");
+        final Player four = new Player("Jimmy");
+        
+        List<Player> playerList = new ArrayList<Player>() {{
+            add(one); add(two); add(three); add(four);
+        }};
+        
+        mPlayerItemAdapter = new PlayerItemAdapter(playerList);
+    }
 
     /**
      * Sets up the content list
      */
     private void setupContentList() {
         // do this first, so we have items to give our RecyclerView
-        //createMockContent();
+        createMockContent();
 
         // setup our RecyclerView
         mPlayerList = (RecyclerView) findViewById(R.id.player_list);
-        //recList.setAdapter(new FeedItemAdapter(mFeedItems));
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        mPlayerList.setLayoutManager(llm);
+        mPlayerList.setAdapter(mPlayerItemAdapter);
+        FixedGridLayoutManager fglm = new FixedGridLayoutManager();
+        fglm.setTotalColumnCount(2);
+        mPlayerList.setLayoutManager(fglm);
 
         // setup FAB and bind it to RecyclerView
         mFab = (FloatingActionButton) findViewById(R.id.fab);
