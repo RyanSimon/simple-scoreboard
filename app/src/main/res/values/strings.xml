@@ -1,0 +1,8 @@
+<resources>
+    <!-- General strings -->
+    <string name="action_settings">Settings</string>
+    
+    <!-- Score Manager strings -->
+    <string name="app_name">SimpleScoreboard</string>
+    <string name="title_activity_score_manager">Scoreboard</string>
+</resources>
