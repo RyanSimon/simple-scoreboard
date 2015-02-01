@@ -18,8 +18,6 @@ import me.ryansimon.simplescoreboard.api.model.Player;
 public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.PlayerItemViewHolder> {
 
     private List<Player> mPlayers;
-    // TODO: move margin to dimens
-    private static final int CARD_MARGIN_DP = 2;
 
     public PlayerItemAdapter(List<Player> players) {
         mPlayers = players;
@@ -49,8 +47,6 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
         else holder.getPlayerScore().setText(player.getScore() + " pts");
         
         setOnClickListeners(holder);
-
-        calculateRowMargins(holder.getRowContainer(), position);
     }
 
     @Override
@@ -119,48 +115,6 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
                 PlayerItemAdapter.this.notifyItemRemoved(holder.getPosition());
             }
         });
-    }
-
-    /**
-     * Adjust margins depending on item position
-     *
-     * @param rowContainer; the parent view of the view holder
-     * @param position; the position of the view holder in the list/grid
-     */
-    private void calculateRowMargins(View rowContainer, int position) {
-        RecyclerView.LayoutParams layoutParams = 
-                (RecyclerView.LayoutParams) rowContainer.getLayoutParams();
-
-        final int CARD_MARGIN_PX = Helper.dpToPixels(CARD_MARGIN_DP,rowContainer.getContext());
-        final int DOUBLE_CARD_MARGIN = Helper.dpToPixels(CARD_MARGIN_DP*2,rowContainer.getContext());
-        
-        // add extra top margin to the first two items
-        if(position == 0 || position == 1) {
-            layoutParams.setMargins(
-                    CARD_MARGIN_PX,
-                    DOUBLE_CARD_MARGIN,
-                    CARD_MARGIN_PX,
-                    CARD_MARGIN_PX
-            );
-        }
-        // add extra bottom margin to the last two items
-        else if(position == mPlayers.size() - 2 || position == mPlayers.size() - 1) {
-            layoutParams.setMargins(
-                    CARD_MARGIN_PX,
-                    CARD_MARGIN_PX,
-                    CARD_MARGIN_PX,
-                    DOUBLE_CARD_MARGIN
-            );
-        }
-        // normal margins should be applied
-        else {
-            layoutParams.setMargins(
-                    CARD_MARGIN_PX,
-                    CARD_MARGIN_PX,
-                    CARD_MARGIN_PX,
-                    CARD_MARGIN_PX
-            );
-        }
     }
 
     /**

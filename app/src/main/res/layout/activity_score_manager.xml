@@ -21,8 +21,8 @@
         <android.support.v7.widget.RecyclerView android:id="@+id/player_list"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp" />
+            android:padding="2dp"
+            android:clipToPadding="false" />
 
         <com.melnykov.fab.FloatingActionButton
             android:id="@+id/fab"
