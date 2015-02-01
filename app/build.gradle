@@ -27,5 +27,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.+'
 
     // third party libraries
+    compile 'com.melnykov:floatingactionbutton:1.1.0'
     compile 'com.squareup.picasso:picasso:2.3.3'
 }
