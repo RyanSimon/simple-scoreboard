@@ -19,7 +19,7 @@
         <RelativeLayout android:id="@+id/player_info_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue"
+            android:background="@drawable/player_info_background"
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
 

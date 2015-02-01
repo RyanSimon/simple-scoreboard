@@ -4,6 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -32,8 +35,16 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
     @Override
     public void onBindViewHolder(PlayerItemViewHolder holder, int position) {
 
-        // TODO: set our Views
+        // get Player item, and set Views with correct data
         Player player = mPlayers.get(position);
+        holder.getPlayerName().setText(player.getName());
+        
+        // set score
+        int score = player.getScore();
+        if(score == 1) {
+            holder.getPlayerScore().setText(player.getScore() + " pt");
+        }
+        else holder.getPlayerScore().setText(player.getScore() + " pts");
         
         calculateRowMargins(holder.getRowContainer(),position);
     }
@@ -86,17 +97,65 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
         /**
          * Layout vars
          */
-        // TODO: put layout vars
+        TextView mPlayerScore;
+        TextView mPlayerName;
+        Button mPlusOne;
+        Button mMinusOne;
+        ImageButton mDelete;
         View mRowContainer;
 
         public PlayerItemViewHolder(View itemView) {
             super(itemView);
 
-            // TODO: set all layout vars
+            mPlayerScore = (TextView) itemView.findViewById(R.id.player_score);
+            mPlayerName = (TextView) itemView.findViewById(R.id.player_name);
+            mPlusOne = (Button) itemView.findViewById(R.id.plus_one);
+            mMinusOne = (Button) itemView.findViewById(R.id.minus_one);
+            mDelete = (ImageButton) itemView.findViewById(R.id.delete);
             mRowContainer = itemView;
         }
+
+        /***** SETTERS AND GETTERS *****/
         
-        // TODO: generate setters and getters
+        public TextView getPlayerScore() {
+            return mPlayerScore;
+        }
+
+        public void setPlayerScore(TextView playerScore) {
+            mPlayerScore = playerScore;
+        }
+
+        public ImageButton getDelete() {
+            return mDelete;
+        }
+
+        public void setDelete(ImageButton delete) {
+            mDelete = delete;
+        }
+
+        public Button getMinusOne() {
+            return mMinusOne;
+        }
+
+        public void setMinusOne(Button minusOne) {
+            mMinusOne = minusOne;
+        }
+
+        public Button getPlusOne() {
+            return mPlusOne;
+        }
+
+        public void setPlusOne(Button plusOne) {
+            mPlusOne = plusOne;
+        }
+
+        public TextView getPlayerName() {
+            return mPlayerName;
+        }
+
+        public void setPlayerName(TextView playerName) {
+            mPlayerName = playerName;
+        }
 
         public View getRowContainer() {
             return mRowContainer;

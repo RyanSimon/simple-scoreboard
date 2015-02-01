@@ -3,7 +3,6 @@ package me.ryansimon.simplescoreboard;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -76,15 +75,18 @@ public class ScoreManagerActivity extends ActionBarActivity {
     }
     
     private void createMockContent() {
-        final Player one = new Player("Christina Smith");
-        final Player two = new Player("Shannon Jones");
-        final Player three = new Player("Sharon Gonzalez");
-        final Player four = new Player("Jimmy Fallon");
-        final Player five = new Player("Stephen Colbert");
-        final Player six = new Player("Don Draper");
+        final Player one = new Player("Christina Smith", 110);
+        final Player two = new Player("Shannon Jones", 24);
+        final Player three = new Player("Sharon Gonzalez", 1);
+        final Player four = new Player("Jimmy Fallon", 56);
+        final Player five = new Player("Stephen Colbert", 13);
+        final Player six = new Player("Don Draper", 220);
+        final Player seven = new Player("Luke Skywalker", 98);
+        final Player eight = new Player("Enrique Delgado", 220);
         
         List<Player> playerList = new ArrayList<Player>() {{
             add(one); add(two); add(three); add(four); add(five); add(six);
+            add(seven); add(eight);
         }};
         
         mPlayerItemAdapter = new PlayerItemAdapter(playerList);
