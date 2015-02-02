@@ -102,6 +102,8 @@ public class ScoreManagerActivity extends ActionBarActivity
         GridLayoutManager glm = new GridLayoutManager(this,2);
         mPlayerList.setLayoutManager(glm);
         
+        // need to show FAB when items are added/removed for when there are not enough items
+        // in the list to reshow the FAB if it is already hidden
         mPlayerList.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, 
