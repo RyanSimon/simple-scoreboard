@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.melnykov.fab.FloatingActionButton;
+import com.melnykov.fab.ScrollDirectionListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +88,7 @@ public class ScoreManagerActivity extends ActionBarActivity
         
         mPlayerItemAdapter = new PlayerItemAdapter(mPlayers);
     }
-
+    
     /**
      * Sets up the content list
      */
@@ -96,6 +101,14 @@ public class ScoreManagerActivity extends ActionBarActivity
         mPlayerList.setAdapter(mPlayerItemAdapter);
         GridLayoutManager glm = new GridLayoutManager(this,2);
         mPlayerList.setLayoutManager(glm);
+        
+        mPlayerList.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, 
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                mFab.show();
+            }
+        });
 
         setupFAB();
     }
