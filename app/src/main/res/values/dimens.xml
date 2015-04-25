@@ -6,4 +6,7 @@
     <!-- Dialog content padding -->
     <dimen name="dialog_content_left">24dp</dimen>
     <dimen name="dialog_content_right">24dp</dimen>
+
+    <!-- FAB -->
+    <dimen name="fab_height">72dp</dimen>
 </resources>

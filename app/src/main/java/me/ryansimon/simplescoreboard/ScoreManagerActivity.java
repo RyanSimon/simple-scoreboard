@@ -5,21 +5,12 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.DragEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
-
-import com.melnykov.fab.FloatingActionButton;
-import com.melnykov.fab.ScrollDirectionListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import me.ryansimon.simplescoreboard.api.model.Player;
+import me.ryansimon.simplescoreboard.view.NoHideFloatingActionButton;
 
 /**
  * @author Ryan Simon
@@ -37,7 +28,7 @@ public class ScoreManagerActivity extends ActionBarActivity
      */
     private RecyclerView mPlayerList;
     private PlayerItemAdapter mPlayerItemAdapter;
-    private FloatingActionButton mFab;
+    private NoHideFloatingActionButton mFab;
     private NewPlayerDialogFragment mNewPlayerDialog;
     
     /**
@@ -101,16 +92,6 @@ public class ScoreManagerActivity extends ActionBarActivity
         mPlayerList.setAdapter(mPlayerItemAdapter);
         GridLayoutManager glm = new GridLayoutManager(this,2);
         mPlayerList.setLayoutManager(glm);
-        
-        // need to show FAB when items are added/removed for when there are not enough items
-        // in the list to reshow the FAB if it is already hidden
-        mPlayerList.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, 
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                mFab.show();
-            }
-        });
 
         setupFAB();
     }
@@ -121,7 +102,7 @@ public class ScoreManagerActivity extends ActionBarActivity
     private void setupFAB() {
 
         // setup FAB and bind it to RecyclerView
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab = (NoHideFloatingActionButton) findViewById(R.id.fab);
         mFab.attachToRecyclerView(mPlayerList);
         
         // setup DialogFragment
