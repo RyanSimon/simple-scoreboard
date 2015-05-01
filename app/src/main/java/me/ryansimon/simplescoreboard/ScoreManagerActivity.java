@@ -1,7 +1,9 @@
 package me.ryansimon.simplescoreboard;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -42,9 +44,20 @@ public class ScoreManagerActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_manager);
-        
+
+        if(savedInstanceState != null && savedInstanceState.containsKey("PLAYERS")) {
+            mPlayers = savedInstanceState.getParcelableArrayList("PLAYERS");
+        }
+
         setupToolbar();
         setupContentList();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putParcelableArrayList("PLAYERS", mPlayers);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     /***** HELPER METHODS *****/
@@ -72,11 +85,13 @@ public class ScoreManagerActivity extends ActionBarActivity
         final Player seven = new Player("Luke Skywalker", 98);
         final Player eight = new Player("Enrique Delgado", 220);
 
-        mPlayers = new ArrayList<Player>() {{
-            add(one); add(two); add(three); add(four); add(five); add(six);
-            add(seven); add(eight);
-        }};
-        
+        if(mPlayers == null) {
+            mPlayers = new ArrayList<Player>() {{
+                add(one); add(two); add(three); add(four); add(five); add(six);
+                add(seven); add(eight);
+            }};
+        }
+
         mPlayerItemAdapter = new PlayerItemAdapter(mPlayers);
     }
     
@@ -90,8 +105,12 @@ public class ScoreManagerActivity extends ActionBarActivity
         // setup our RecyclerView
         mPlayerList = (RecyclerView) findViewById(R.id.player_list);
         mPlayerList.setAdapter(mPlayerItemAdapter);
-        GridLayoutManager glm = new GridLayoutManager(this,2);
-        mPlayerList.setLayoutManager(glm);
+        mPlayerList.setLayoutManager(
+                new GridLayoutManager(
+                        this,
+                        getResources().getInteger(R.integer.scoreboard_column_num)
+                )
+        );
 
         setupFAB();
     }
