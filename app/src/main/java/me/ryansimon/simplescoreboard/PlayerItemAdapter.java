@@ -144,9 +144,9 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
         }
 
         public void updatePlayerScore(int score) {
-            this.getPlayerScore().setText(score + " " +
+            this.getPlayerScore().setText(
                             MyApplication.getContext().getResources().getQuantityString(
-                                    R.plurals.points_abbrv,score
+                                    R.plurals.points_abbrv,score,score
                             )
             );
         }
