@@ -40,11 +40,7 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
         holder.getPlayerName().setText(player.getName());
         
         // set score
-        int score = player.getScore();
-        if(score == 1) {
-            holder.getPlayerScore().setText(player.getScore() + " pt");
-        }
-        else holder.getPlayerScore().setText(player.getScore() + " pts");
+        holder.updatePlayerScore(player.getScore());
         
         setOnClickListeners(holder);
     }
@@ -72,12 +68,9 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
             @Override
             public void onClick(View v) {
                 Player player = mPlayers.get(holder.getPosition());
-                player.setScore(player.getScore()+1);
+                player.setScore(player.getScore() + 1);
 
-                holder.getPlayerScore().setText(
-                        String.valueOf(player.getScore() + " "
-                                        + ((player.getScore() != 1) ? "pts" : "pt")
-                        ));
+                holder.updatePlayerScore(player.getScore());
             }
         });
 
@@ -95,10 +88,7 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
                     player.setScore(player.getScore()-1);   
                 }
                 
-                holder.getPlayerScore().setText(
-                        String.valueOf(player.getScore() + " " 
-                                        + ((player.getScore() != 1) ? "pts" : "pt")
-                ));
+                holder.updatePlayerScore(player.getScore());
             }
         });
 
@@ -151,6 +141,14 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
 
         public void setPlayerScore(TextView playerScore) {
             mPlayerScore = playerScore;
+        }
+
+        public void updatePlayerScore(int score) {
+            this.getPlayerScore().setText(score + " " +
+                            MyApplication.getContext().getResources().getQuantityString(
+                                    R.plurals.points_abbrv,score
+                            )
+            );
         }
 
         public ImageButton getDelete() {
