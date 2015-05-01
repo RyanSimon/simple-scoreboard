@@ -37,6 +37,7 @@ public class ScoreManagerActivity extends ActionBarActivity
      * Other vars 
      */
     private ArrayList<Player> mPlayers;
+    private static final String PLAYERS_BUNDLE_KEY = "PLAYERS";
     
     /***** ACTIVITY LIFECYCLE METHODS *****/
     
@@ -45,8 +46,8 @@ public class ScoreManagerActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_manager);
 
-        if(savedInstanceState != null && savedInstanceState.containsKey("PLAYERS")) {
-            mPlayers = savedInstanceState.getParcelableArrayList("PLAYERS");
+        if(savedInstanceState != null && savedInstanceState.containsKey(PLAYERS_BUNDLE_KEY)) {
+            mPlayers = savedInstanceState.getParcelableArrayList(PLAYERS_BUNDLE_KEY);
         }
 
         setupToolbar();
@@ -55,7 +56,7 @@ public class ScoreManagerActivity extends ActionBarActivity
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putParcelableArrayList("PLAYERS", mPlayers);
+        savedInstanceState.putParcelableArrayList(PLAYERS_BUNDLE_KEY, mPlayers);
 
         super.onSaveInstanceState(savedInstanceState);
     }
