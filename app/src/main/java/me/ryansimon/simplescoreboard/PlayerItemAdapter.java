@@ -8,15 +8,27 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.listeners.ActionClickListener;
+
 import java.util.List;
 
 import me.ryansimon.simplescoreboard.api.model.Player;
+import me.ryansimon.simplescoreboard.util.SnackbarUtil;
 
 /**
  * @author Ryan Simon
  */
 public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.PlayerItemViewHolder> {
 
+    /**
+     * Layout vars
+     */
+    private RecyclerView mRecyclerView;
+
+    /**
+     * Other vars
+     */
     private List<Player> mPlayers;
 
     public PlayerItemAdapter(List<Player> players) {
@@ -48,6 +60,20 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
     @Override
     public int getItemCount() {
         return (mPlayers != null) ? mPlayers.size() : 0;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+
+        mRecyclerView = null;
     }
 
     /***** HELPER METHODS *****/
@@ -100,9 +126,17 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
              */
             @Override
             public void onClick(View v) {
-                // TODO: add Undo snackbar if time allows
-                PlayerItemAdapter.this.mPlayers.remove(holder.getPosition());
-                PlayerItemAdapter.this.notifyItemRemoved(holder.getPosition());
+                SnackbarUtil.showPlayerDeletedUndoSnackbar(1, mRecyclerView, null, new ActionClickListener() {
+                    @Override
+                    public void onActionClicked(Snackbar snackbar) {
+                        // TODO: add action
+                    }
+                });
+
+                if(holder.getAdapterPosition() >= 0 && holder.getAdapterPosition() < mPlayers.size()) {
+                    mPlayers.remove(holder.getAdapterPosition());
+                    PlayerItemAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                }
             }
         });
     }

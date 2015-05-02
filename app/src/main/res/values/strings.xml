@@ -1,6 +1,7 @@
 <resources>
     <!-- General strings -->
     <string name="action_settings">Settings</string>
+    <string name="undo">Undo</string>
     
     <!-- Score Manager strings -->
     <string name="app_name">SimpleScoreboard</string>
@@ -10,7 +11,11 @@
         <item quantity="one">%d pt</item>
         <item quantity="other">%d pts</item>
     </plurals>
-    
+    <plurals name="players_deleted">
+        <item quantity="one">%d player removed</item>
+        <item quantity="other">%d players removed</item>
+    </plurals>
+
     <!-- Player List Item strings -->
     <string name="plus_one">+1</string>
     <string name="minus_one">-1</string>
@@ -20,5 +25,6 @@
     <string name="new_player_name_label">Name</string>
     <string name="new_player_score">Initial Score</string>
     <string name="new_player_default_score">0</string>
+
     
 </resources>
