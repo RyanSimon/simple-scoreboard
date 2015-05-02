@@ -1,6 +1,5 @@
 package me.ryansimon.simplescoreboard;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,10 +9,8 @@ import android.view.View;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.EventListener;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ryansimon.simplescoreboard.api.model.Player;
 import me.ryansimon.simplescoreboard.util.SnackbarUtil;

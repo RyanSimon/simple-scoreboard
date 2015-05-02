@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingStart="@dimen/dialog_content_left"
     android:paddingLeft="@dimen/dialog_content_left"
+    android:paddingEnd="@dimen/dialog_content_right"
     android:paddingRight="@dimen/dialog_content_right">
 
     <TextView
@@ -31,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
+        android:maxLength="8"
         android:inputType="number"
         android:hint="@string/new_player_default_score" />
     
