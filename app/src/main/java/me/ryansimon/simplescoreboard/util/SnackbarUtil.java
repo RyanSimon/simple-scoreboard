@@ -1,5 +1,6 @@
 package me.ryansimon.simplescoreboard.util;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.widget.AbsListView;
 
@@ -23,12 +24,13 @@ public final class SnackbarUtil {
         throw new AbstractMethodError();
     }
 
-    public static void showSnackbar(SnackbarType type, String mainText, int mainColorResource,
-                                    String actionText, int actionColorResource, long duration,
-                                    boolean doAnimate, RecyclerView listView, boolean swipeToDismiss,
-                                    EventListener eventListener, ActionClickListener actionClickListener) {
+    public static void showSnackbar(Activity activity, SnackbarType type, String mainText,
+                                    int mainColorResource, String actionText, int actionColorResource,
+                                    long duration, boolean doAnimate, RecyclerView listView,
+                                    boolean swipeToDismiss, EventListener eventListener,
+                                    ActionClickListener actionClickListener) {
         SnackbarManager.show(
-                Snackbar.with(MyApplication.getContext())
+                Snackbar.with(activity)
                         .type(type)
                         .text(mainText)
                         .textColor(mainColorResource)
@@ -44,15 +46,17 @@ public final class SnackbarUtil {
 
     }
 
-    public static void showAppSnackbar(String mainText, String actionText, long duration,
-                                       RecyclerView listView, EventListener eventListener,
+    public static void showAppSnackbar(Activity activity, String mainText, String actionText,
+                                       long duration, RecyclerView listView,
+                                       EventListener eventListener,
                                        ActionClickListener actionClickListener) {
         showSnackbar(
+                activity,
                 SnackbarType.SINGLE_LINE,
                 mainText,
                 MyApplication.getContext().getResources().getColor(R.color.white),
                 actionText,
-                MyApplication.getContext().getResources().getColor(R.color.white),
+                MyApplication.getContext().getResources().getColor(R.color.primaryAccent),
                 duration,
                 true,
                 listView,
@@ -62,14 +66,15 @@ public final class SnackbarUtil {
         );
     }
 
-    public static void showPlayerDeletedUndoSnackbar(int numDeletedPlayers, RecyclerView listView,
+    public static void showPlayerDeletedUndoSnackbar(Activity activity,
+                                                     String playerName, RecyclerView listView,
                                                      EventListener eventListener,
                                                      ActionClickListener actionClickListener) {
         showAppSnackbar(
-                MyApplication.getContext().getResources().getQuantityString(
-                        R.plurals.players_deleted,
-                        numDeletedPlayers,
-                        numDeletedPlayers
+                activity,
+                MyApplication.getContext().getResources().getString(
+                        R.string.player_removed,
+                        playerName
                 ),
                 MyApplication.getContext().getString(R.string.undo),
                 Snackbar.SnackbarDuration.LENGTH_LONG.getDuration(),

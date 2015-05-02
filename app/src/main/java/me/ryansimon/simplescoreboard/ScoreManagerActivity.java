@@ -1,17 +1,22 @@
 package me.ryansimon.simplescoreboard;
 
-import android.content.res.Configuration;
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListener;
+
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ryansimon.simplescoreboard.api.model.Player;
+import me.ryansimon.simplescoreboard.util.SnackbarUtil;
 import me.ryansimon.simplescoreboard.view.NoHideFloatingActionButton;
 
 /**
@@ -23,12 +28,13 @@ import me.ryansimon.simplescoreboard.view.NoHideFloatingActionButton;
  * Scores are 0 by default, and can never be negative.
  */
 public class ScoreManagerActivity extends ActionBarActivity
-        implements NewPlayerDialogFragment.OnDialogActionListener{
+        implements NewPlayerDialogFragment.OnDialogActionListener,
+                   PlayerItemAdapter.PlayerItemInteraction {
 
     /**
      * Layout vars
      */
-    private RecyclerView mPlayerList;
+    private RecyclerView mPlayerListView;
     private PlayerItemAdapter mPlayerItemAdapter;
     private NoHideFloatingActionButton mFab;
     private NewPlayerDialogFragment mNewPlayerDialog;
@@ -93,7 +99,7 @@ public class ScoreManagerActivity extends ActionBarActivity
             }};
         }
 
-        mPlayerItemAdapter = new PlayerItemAdapter(mPlayers);
+        mPlayerItemAdapter = new PlayerItemAdapter(mPlayers,this);
     }
     
     /**
@@ -104,9 +110,9 @@ public class ScoreManagerActivity extends ActionBarActivity
         createMockContent();
 
         // setup our RecyclerView
-        mPlayerList = (RecyclerView) findViewById(R.id.player_list);
-        mPlayerList.setAdapter(mPlayerItemAdapter);
-        mPlayerList.setLayoutManager(
+        mPlayerListView = (RecyclerView) findViewById(R.id.player_list);
+        mPlayerListView.setAdapter(mPlayerItemAdapter);
+        mPlayerListView.setLayoutManager(
                 new GridLayoutManager(
                         this,
                         getResources().getInteger(R.integer.scoreboard_column_num)
@@ -123,7 +129,7 @@ public class ScoreManagerActivity extends ActionBarActivity
 
         // setup FAB and bind it to RecyclerView
         mFab = (NoHideFloatingActionButton) findViewById(R.id.fab);
-        mFab.attachToRecyclerView(mPlayerList);
+        mFab.attachToRecyclerView(mPlayerListView);
         
         // setup DialogFragment
         if(mNewPlayerDialog == null) {
@@ -165,5 +171,22 @@ public class ScoreManagerActivity extends ActionBarActivity
     @Override
     public void onNegative() {
 
+    }
+
+    /***** PLAYER ITEM ADAPTER CALLBACKS *****/
+
+    @Override
+    public void onPlayerDeleted(final Player player, final int playerAdapterPosition) {
+        SnackbarUtil.showPlayerDeletedUndoSnackbar(ScoreManagerActivity.this, player.getName(),
+                mPlayerListView,
+                null,
+                new ActionClickListener() {
+                    @Override
+                    public void onActionClicked(Snackbar snackbar) {
+                        mPlayers.add(playerAdapterPosition,player);
+                        mPlayerItemAdapter.notifyItemInserted(playerAdapterPosition);
+                    }
+                }
+        );
     }
 }

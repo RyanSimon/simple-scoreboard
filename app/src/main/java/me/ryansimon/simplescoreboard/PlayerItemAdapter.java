@@ -1,5 +1,7 @@
 package me.ryansimon.simplescoreboard;
 
+import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +12,10 @@ import android.widget.TextView;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.EventListener;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ryansimon.simplescoreboard.api.model.Player;
 import me.ryansimon.simplescoreboard.util.SnackbarUtil;
@@ -30,9 +34,11 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
      * Other vars
      */
     private List<Player> mPlayers;
+    private PlayerItemInteraction mListener;
 
-    public PlayerItemAdapter(List<Player> players) {
+    public PlayerItemAdapter(@NonNull List<Player> players, @NonNull PlayerItemInteraction listener) {
         mPlayers = players;
+        mListener = listener;
     }
 
     /***** OVERRIDE METHODS *****/
@@ -126,16 +132,17 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
              */
             @Override
             public void onClick(View v) {
-                SnackbarUtil.showPlayerDeletedUndoSnackbar(1, mRecyclerView, null, new ActionClickListener() {
-                    @Override
-                    public void onActionClicked(Snackbar snackbar) {
-                        // TODO: add action
-                    }
-                });
+                final int holderAdapterPosition = holder.getAdapterPosition();
 
-                if(holder.getAdapterPosition() >= 0 && holder.getAdapterPosition() < mPlayers.size()) {
-                    mPlayers.remove(holder.getAdapterPosition());
-                    PlayerItemAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                if(holderAdapterPosition >= 0 && holderAdapterPosition < mPlayers.size()) {
+
+                    mListener.onPlayerDeleted(
+                            mPlayers.get(holderAdapterPosition),
+                            holderAdapterPosition
+                    );
+
+                    mPlayers.remove(holderAdapterPosition);
+                    PlayerItemAdapter.this.notifyItemRemoved(holder.getLayoutPosition());
                 }
             }
         });
@@ -179,9 +186,9 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
 
         public void updatePlayerScore(int score) {
             this.getPlayerScore().setText(
-                            MyApplication.getContext().getResources().getQuantityString(
-                                    R.plurals.points_abbrv,score,score
-                            )
+                    MyApplication.getContext().getResources().getQuantityString(
+                            R.plurals.points_abbrv, score, score
+                    )
             );
         }
 
@@ -224,5 +231,9 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
         public void setRowContainer(View rowContainer) {
             mRowContainer = rowContainer;
         }
+    }
+
+    public interface PlayerItemInteraction {
+        void onPlayerDeleted(final Player player, final int playerAdapterPosition);
     }
 }
