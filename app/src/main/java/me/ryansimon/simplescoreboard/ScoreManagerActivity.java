@@ -174,12 +174,10 @@ public class ScoreManagerActivity extends ActionBarActivity
 
     @Override
     public void onPlayerDeleted(final Player player, final int playerAdapterPosition) {
-        SnackbarUtil.showPlayerDeletedUndoSnackbar(ScoreManagerActivity.this, player.getName(),
-                mPlayerListView,
-                null,
-                new ActionClickListener() {
+        SnackbarUtil.showPlayerDeletedUndoSnackbar(player.getName(), mPlayerListView,
+                new View.OnClickListener() {
                     @Override
-                    public void onActionClicked(Snackbar snackbar) {
+                    public void onClick(View view) {
                         mPlayers.add(playerAdapterPosition,player);
                         mPlayerItemAdapter.notifyItemInserted(playerAdapterPosition);
                     }

@@ -109,7 +109,7 @@ public class NewPlayerDialogFragment extends android.support.v4.app.DialogFragme
     /***** CALLBACK INTERFACE *****/
     
     public interface OnDialogActionListener {
-        public void onPositive(String newPlayerName, String newPlayerScore);
-        public void onNegative();
+        void onPositive(String newPlayerName, String newPlayerScore);
+        void onNegative();
     }
 }
