@@ -1,6 +1,5 @@
 package me.ryansimon.simplescoreboard;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,15 +9,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.EventListener;
-
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import me.ryansimon.simplescoreboard.api.model.Player;
-import me.ryansimon.simplescoreboard.util.SnackbarUtil;
 
 /**
  * @author Ryan Simon
@@ -132,7 +125,7 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
              */
             @Override
             public void onClick(View v) {
-                final int holderAdapterPosition = holder.getAdapterPosition();
+                final int holderAdapterPosition = holder.getPosition();
 
                 if(holderAdapterPosition >= 0 && holderAdapterPosition < mPlayers.size()) {
 
@@ -142,7 +135,7 @@ public class PlayerItemAdapter extends RecyclerView.Adapter<PlayerItemAdapter.Pl
                     );
 
                     mPlayers.remove(holderAdapterPosition);
-                    PlayerItemAdapter.this.notifyItemRemoved(holder.getLayoutPosition());
+                    PlayerItemAdapter.this.notifyItemRemoved(holderAdapterPosition);
                 }
             }
         });

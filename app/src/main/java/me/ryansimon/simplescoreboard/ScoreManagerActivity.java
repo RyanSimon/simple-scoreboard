@@ -7,9 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.listeners.ActionClickListener;
-
 import java.util.ArrayList;
 
 import me.ryansimon.simplescoreboard.api.model.Player;
@@ -72,7 +69,7 @@ public class ScoreManagerActivity extends ActionBarActivity
     private void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getString(R.string.title_activity_score_manager));
+        setTitle(getString(R.string.title_activity_score_manager));
     }
 
     /**
