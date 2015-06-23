@@ -33,7 +33,12 @@ As Android's replacement for the ActionBar, the Toolbar's greatest strength is i
 
 SimpleDashboard's Toolbar is used for context, and color contrast.
 
+#### Snackbar [[link]](http://developer.android.com/reference/android/support/design/widget/Snackbar.html)
+As part of the new Material Design, the Snackbar is sleek alternative for Toast messages.
+
+SimpleScoreboard displays a Snackbar with an undo option after removing a player from the scoreboard.
+
 #### FloatingActionButton (FAB) [[link]](https://github.com/makovkastar/FloatingActionButton)
 To make life a little easier, makovkastar's FloatingActionButton builds in a lot of great features from the FAB guidelines.
 
-The FAB in SimpleDashboard is used to add a new player, and makes for great color contrast against the content.
+The FAB in SimpleScoreboard is used to add a new player, and makes for great color contrast against the content.
